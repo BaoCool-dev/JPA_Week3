@@ -91,17 +91,18 @@ button:hover {
 		<form
 			action="${pageContext.request.contextPath}/admin-category/create"
 			method="post" enctype="multipart/form-data">
-			<label for="categorycode">Category Code:</label> <input type="text"
-				id="categorycode" name="categorycode" required /><br> <label
-				for="categoryname">Category Name:</label> <input type="text"
-				id="categoryname" name="categoryname" required /><br> <label
+			<label for="categoryCode">Category Code:</label> <input type="text"
+				id="categoryCode" name="categoryCode" required /> <label
+				for="categoryName">Category Name:</label> <input type="text"
+				id="categoryName" name="categoryName" required /> <label
 				for="images">Image:</label> <input type="file" id="images"
-				name="images" /><br> <label for="status">Status:</label> <input
-				type="checkbox" id="status" name="status" checked /> Active<br>
-			<br>
+				name="images" /> <label for="status">Status:</label> <input
+				type="checkbox" id="status" name="status" value="true" checked />
+			Active
 
-			<button type="submit">Add</button>
+			<button type="submit">Add Category</button>
 		</form>
+
 
 		<div class="back-link">
 			<a href="${pageContext.request.contextPath}/admin-category">Back</a>

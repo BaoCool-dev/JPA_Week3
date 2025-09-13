@@ -6,7 +6,7 @@ import jakarta.persistence.Persistence;
 
 public class JPA_Config {
 	public static EntityManager getEntityManager() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa_LTWeb");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("datasource");
 		return factory.createEntityManager();
 	}
 }

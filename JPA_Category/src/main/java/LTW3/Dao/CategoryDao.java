@@ -2,6 +2,7 @@ package LTW3.Dao;
 
 import java.util.List;
 
+
 import LTW3.Entity.Category;
 
 public interface CategoryDao {
@@ -21,5 +22,7 @@ public interface CategoryDao {
 	void update(Category category);
 
 	void insert(Category category);
+
+	List<Category> findByUserId(int userId);
 
 }

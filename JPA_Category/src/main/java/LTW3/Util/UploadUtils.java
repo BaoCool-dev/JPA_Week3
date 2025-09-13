@@ -42,6 +42,7 @@ public class UploadUtils {
 
 	public static String processUploadFileWeb(String fieldName, HttpServletRequest req, String storeFolder,
 			String storeFilename) throws IOException, ServletException {
+
 		Part filePart = req.getPart(fieldName);
 		if (filePart == null || filePart.getSize() == 0) {
 			return "";
@@ -51,13 +52,14 @@ public class UploadUtils {
 			storeFolder = "/uploads";
 		}
 
+		String originalFileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 		if (storeFilename == null) {
-			storeFilename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+			storeFilename = originalFileName;
 		} else {
-			storeFilename = storeFilename + "."
-					+ FilenameUtils.getExtension(Paths.get(filePart.getSubmittedFileName()).getFileName().toString());
+			storeFilename = storeFilename + "." + FilenameUtils.getExtension(originalFileName);
 		}
 
+		// Thư mục thực tế trong server (tomcat target/.../uploads/category)
 		String uploadFolder = req.getServletContext().getRealPath(storeFolder);
 		Path uploadPath = Paths.get(uploadFolder);
 		if (!Files.exists(uploadPath)) {
@@ -65,7 +67,8 @@ public class UploadUtils {
 		}
 
 		filePart.write(Paths.get(uploadPath.toString(), storeFilename).toString());
-		return storeFilename;
+
+		return storeFilename; // chỉ trả về tên file, để DB lưu
 	}
 
 }

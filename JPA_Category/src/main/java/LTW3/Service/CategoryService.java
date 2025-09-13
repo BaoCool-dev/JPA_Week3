@@ -23,6 +23,12 @@ public interface CategoryService {
 
 	void insert(Category category);
 
+	List<Category> findByUserId(int userId);
+
+	void assignRole(int userId, int roleId);
+
+	void removeRole(int userId);
+
 	
 	
 }

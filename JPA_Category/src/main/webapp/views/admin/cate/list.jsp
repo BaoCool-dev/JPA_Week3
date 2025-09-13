@@ -13,6 +13,8 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
 <style>
 .portlet-title {
 	font-size: 1.5em;
@@ -52,10 +54,12 @@
 
 		<div class="table-toolbar">
 			<a href="${pageContext.request.contextPath}/admin-category/create"
-				class="btn btn-success"><i class="fas fa-plus"></i> Add New</a>
-			<button class="btn btn-warning">
-				<i class="fas fa-edit"></i> Edit
-			</button>
+				class="btn btn-success"><i class="fas fa-plus"></i> Add New</a> <a
+				href="${pageContext.request.contextPath}/views/admin/cate/edit.jsp"
+				class="btn btn-warning"> <i class="fas fa-edit"></i> Edit
+			</a>
+
+
 			<button class="btn btn-danger">
 				<i class="fas fa-trash"></i> Delete
 			</button>
@@ -77,11 +81,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="category" items="${category}">
+					<c:forEach var="category" items="${categories}">
 						<tr>
 							<td>${category.categoryCode}</td>
 							<td>${category.categoryName}</td>
-							<td><img src="${category.images}" alt="Image" width="50" /></td>
+							<td><img
+								src="${pageContext.request.contextPath}/images/${category.images}"
+								alt="Category Image" width="120" class="img-thumbnail"></td>
 							<td><c:choose>
 									<c:when test="${category.status}">Active</c:when>
 									<c:otherwise>Inactive</c:otherwise>
