@@ -2,7 +2,6 @@ package LTW3.Service;
 
 import java.util.List;
 
-
 import LTW3.Entity.User;
 
 public interface UserService {
@@ -23,7 +22,9 @@ public interface UserService {
 	void assignRole(int userId, int roleId);
 
 	void removeRole(int userId);
+
 	User findById(int userId);
-	List<User> findAll(); 
+
+	List<User> findAll();
 
 }

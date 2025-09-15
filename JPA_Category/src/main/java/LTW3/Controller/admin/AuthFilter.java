@@ -37,7 +37,8 @@ public class AuthFilter implements Filter {
 			return;
 		}
 
-		int roleId = user.getRole().getRoleId();
+		// Dùng khóa ngoại roleID
+		int roleId = user.getRoleID();
 
 		// Chặn truy cập theo role
 		if (path.startsWith(req.getContextPath() + "/admin") && roleId != 3) {

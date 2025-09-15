@@ -75,6 +75,8 @@ public class HomeController extends HttpServlet {
 		if (user != null) {
 			HttpSession session = req.getSession();
 			session.setAttribute(Constant.SESSION_ACCOUNT, user);
+			// set trực tiếp thông tin user vô session
+			session.setAttribute("userLogin", user);
 
 			// Ghi nhớ đăng nhập nếu người dùng chọn
 			if ("on".equals(req.getParameter("remember"))) {
@@ -214,7 +216,9 @@ public class HomeController extends HttpServlet {
 			return;
 		}
 
-		int roleId = currentUser.getRole().getRoleId();
+		// Điều hướng theo quyền dựa trên roleID (ổn định, tránh NPE khi entity role
+		// null)
+		int roleId = currentUser.getRoleID();
 		String view = "";
 
 		switch (roleId) {

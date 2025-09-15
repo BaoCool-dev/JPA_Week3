@@ -141,8 +141,8 @@ public class User implements Serializable {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
-		this.status = status;
+	public void setStatus(boolean i) {
+		this.status = i;
 	}
 
 	public String getCode() {

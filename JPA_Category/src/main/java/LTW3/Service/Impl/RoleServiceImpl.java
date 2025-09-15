@@ -8,18 +8,16 @@ import LTW3.Entity.Role;
 import LTW3.Service.RoleService;
 
 public class RoleServiceImpl implements RoleService {
-    private RoleDao roleDao = new RoleDaoImpl();
+	private RoleDao roleDao = new RoleDaoImpl();
 
-    @Override
-    public Role findByName(String name) {
-        return roleDao.findByName(name);
-    }
+	@Override
+	public Role findByName(String name) {
+		return roleDao.findByName(name);
+	}
 
 	@Override
 	public List<Role> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return roleDao.findAll();
 	}
 
-	
 }

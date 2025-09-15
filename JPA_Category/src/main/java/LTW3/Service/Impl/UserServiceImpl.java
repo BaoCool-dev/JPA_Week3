@@ -43,10 +43,10 @@ public class UserServiceImpl implements UserService {
 		user.setPhone(phone);
 
 		user.setImages("default.png");
-		user.setStatus(1);
+		user.setStatus(true);
 		user.setCode(generateRandomCode());
 		user.setRoleID(2);
-		user.setSellerID(0);
+	
 
 		return userDao.insert(user);
 	}
@@ -88,7 +88,9 @@ public class UserServiceImpl implements UserService {
 		User user = userDao.findById(userId);
 		Role role = roleDao.findById(roleId);
 		if (user != null && role != null) {
-			user.setRole(role);
+			// Cập nhật trực tiếp khóa ngoại (Cách A) thay vì set entity role,
+			// vì mapping User.role không cho phép ghi (insertable/updatable=false)
+			user.setRoleID(roleId);
 			userDao.update(user);
 		}
 	}
@@ -97,7 +99,8 @@ public class UserServiceImpl implements UserService {
 	public void removeRole(int userId) {
 		User user = userDao.findById(userId);
 		if (user != null) {
-			user.setRole(null);
+			// Xóa quyền bằng cách đưa khóa ngoại roleID về 0
+			user.setRoleID(0);
 			userDao.update(user);
 		}
 	}
