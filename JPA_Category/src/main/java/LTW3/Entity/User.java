@@ -11,7 +11,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userID")
-	private int userId; // Đổi tên để đúng chuẩn camelCase
+	private int userId; 
 
 	@Column(name = "userName", nullable = false, unique = true, length = 50)
 	private String userName;
@@ -32,7 +32,7 @@ public class User implements Serializable {
 	private String phone;
 
 	@Column(name = "status")
-	private int status;
+	private boolean status;
 
 	@Column(name = "code", length = 50)
 	private String code;
@@ -40,8 +40,7 @@ public class User implements Serializable {
 	@Column(name = "roleID")
 	private int roleID;
 
-	@Column(name = "sellerID")
-	private int sellerID;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "roleID", insertable = false, updatable = false)
@@ -51,7 +50,7 @@ public class User implements Serializable {
 	}
 
 	public User(int userId, String userName, String email, String fullName, String password, String images,
-			String phone, int status, String code, int roleID, int sellerID) {
+			String phone, boolean status, String code, int roleID) {
 		this.userId = userId;
 		this.userName = userName;
 		this.email = email;
@@ -62,10 +61,9 @@ public class User implements Serializable {
 		this.status = status;
 		this.code = code;
 		this.roleID = roleID;
-		this.sellerID = sellerID;
 	}
 
-	public User(String userName, String email, String fullName, String password, int status, String code, int roleID) {
+	public User(String userName, String email, String fullName, String password, boolean status, String code, int roleID) {
 		this.userName = userName;
 		this.email = email;
 		this.fullName = fullName;
@@ -139,11 +137,11 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 
-	public int getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 
@@ -163,13 +161,6 @@ public class User implements Serializable {
 		this.roleID = roleID;
 	}
 
-	public int getSellerID() {
-		return sellerID;
-	}
-
-	public void setSellerID(int sellerID) {
-		this.sellerID = sellerID;
-	}
 
 	public Role getRole() {
 		return role;
