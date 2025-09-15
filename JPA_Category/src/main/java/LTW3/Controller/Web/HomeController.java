@@ -74,7 +74,7 @@ public class HomeController extends HttpServlet {
 
 		if (user != null) {
 			HttpSession session = req.getSession();
-			session.setAttribute("userLogin", user);
+			session.setAttribute(Constant.SESSION_ACCOUNT, user);
 
 			// Ghi nhớ đăng nhập nếu người dùng chọn
 			if ("on".equals(req.getParameter("remember"))) {
@@ -206,27 +206,58 @@ public class HomeController extends HttpServlet {
 
 	// ==================== HOME + WAITING + LOGOUT ====================
 	private void homePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher(Constant.Path.HOME).forward(req, resp);
+		HttpSession session = req.getSession();
+		User currentUser = (User) session.getAttribute(Constant.SESSION_ACCOUNT);
+
+		if (currentUser == null) {
+			resp.sendRedirect(req.getContextPath() + Constant.Path.LOGIN);
+			return;
+		}
+
+		int roleId = currentUser.getRole().getRoleId();
+		String view = "";
+
+		switch (roleId) {
+		case 1: // User
+			view = Constant.Path.USER_HOME; // ví dụ: "/views/user/home_user.jsp"
+			break;
+		case 2: // Manager
+			view = Constant.Path.MANAGER_HOME; // ví dụ: "/views/manager/home_manager.jsp"
+			break;
+		case 3: // Admin
+			view = Constant.Path.ADMIN_HOME; // ví dụ: "/views/admin/home_admin.jsp"
+			break;
+		default:
+			view = Constant.Path.ERROR; // ví dụ: "/views/error.jsp"
+			req.setAttribute("error", "Invalid role ID!");
+			break;
+		}
+
+		req.getRequestDispatcher(view).forward(req, resp);
 	}
 
-	private void getWaiting(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	private void getWaiting(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		HttpSession session = req.getSession();
-		User u = (User) session.getAttribute("userLogin");
+		User u = (User) session.getAttribute(Constant.SESSION_ACCOUNT);
 
 		if (u == null) {
 			resp.sendRedirect(req.getContextPath() + "/login");
 			return;
 		}
 
-		if (u.getRoleID() == 1) { // User
-			resp.sendRedirect(req.getContextPath() + "/user/home");
-		} else if (u.getRoleID() == 2) { // Manager
-			resp.sendRedirect(req.getContextPath() + "/manager/home");
-		} else if (u.getRoleID() == 3) { // Admin
-			resp.sendRedirect(req.getContextPath() + "/admin/home");
+		String view;
+		if (u.getRoleID() == 1) {
+			view = Constant.Path.USER_HOME;
+		} else if (u.getRoleID() == 2) {
+			view = Constant.Path.MANAGER_HOME;
+		} else if (u.getRoleID() == 3) {
+			view = Constant.Path.ADMIN_HOME;
 		} else {
-			resp.sendRedirect(req.getContextPath() + "/home");
+			view = Constant.Path.ERROR;
+			req.setAttribute("error", "Invalid role!");
 		}
+
+		req.getRequestDispatcher(view).forward(req, resp);
 	}
 
 	private void saveRememberMe(HttpServletResponse response, String username) {

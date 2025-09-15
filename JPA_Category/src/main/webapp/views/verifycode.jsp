@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Forgot Password</title>
+<title>Verify Code</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="stylesheet"
@@ -33,13 +33,16 @@ body {
 	display: flex;
 	justify-content: center;
 }
+
+.button-group .btn {
+	margin: 0 10px;
+}
 </style>
 </head>
 <body>
 	<div class="form-box">
-		<form action="${pageContext.request.contextPath}/forgotpassword"
-			method="post">
-			<h2 class="text-center mb-4">Forgot Password</h2>
+		<form action="${pageContext.request.contextPath}/verify" method="post">
+			<h2 class="text-center mb-4">Verify Your Code</h2>
 
 			<c:if test="${error != null}">
 				<div class="alert alert-danger text-center">${error}</div>
@@ -49,22 +52,18 @@ body {
 			</c:if>
 
 			<div class="mb-3">
-				<label class="form-label">Email</label>
+				<label class="form-label">Enter Verification Code</label>
 				<div class="input-group">
-					<span class="input-group-text"><i class="fa fa-envelope"></i></span>
-					<input type="email" placeholder="Enter your email" name="email"
+					<span class="input-group-text"><i class="fa fa-key"></i></span> <input
+						type="text" name="verifyCode" placeholder="6-digit code"
 						class="form-control" required>
 				</div>
-				<small class="text-muted">We will send you a reset link</small>
 			</div>
 
 			<div class="button-group">
-				<button type="submit" class="btn btn-primary w-100">Send
-					Reset Link</button>
-			</div>
-
-			<div class="text-center mt-3">
-				<a href="${pageContext.request.contextPath}/login">Back to Login</a>
+				<button type="submit" class="btn btn-primary">Verify</button>
+				<a href="${pageContext.request.contextPath}/forgotpassword"
+					class="btn btn-secondary">Back</a>
 			</div>
 		</form>
 	</div>

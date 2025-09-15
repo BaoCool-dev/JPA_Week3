@@ -15,6 +15,7 @@ import LTW3.Service.RoleService;
 import LTW3.Service.UserService;
 import LTW3.Service.Impl.RoleServiceImpl;
 import LTW3.Service.Impl.UserServiceImpl;
+import LTW3.Util.Constant;
 
 @WebServlet(urlPatterns = { 
     "/admin-userrole", 
@@ -36,11 +37,11 @@ public class UserRoleController extends HttpServlet {
         String url = req.getRequestURL().toString();
 
         if (url.contains("create")) {
-            req.getRequestDispatcher("/views/admin/userrole/add.jsp").forward(req, resp);
+            req.getRequestDispatcher(Constant.Path.USERROLE_ADD).forward(req, resp);
             return;
         } else if (url.contains("edit")) {
             edit(req, resp);
-            req.getRequestDispatcher("/views/admin/userrole/edit.jsp").forward(req, resp);
+            req.getRequestDispatcher(Constant.Path.USERROLE_EDIT).forward(req, resp);
             return;
         } else if (url.contains("delete")) {
             delete(req, resp);
@@ -49,7 +50,7 @@ public class UserRoleController extends HttpServlet {
         }
 
         findAll(req, resp);
-        req.getRequestDispatcher("/views/admin/userrole/list.jsp").forward(req, resp);
+        req.getRequestDispatcher(Constant.Path.USERROLE_LIST).forward(req, resp);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class UserRoleController extends HttpServlet {
         }
 
         findAll(req, resp);
-        req.getRequestDispatcher("/views/admin/userrole/list.jsp").forward(req, resp);
+        req.getRequestDispatcher(Constant.Path.USERROLE_LIST).forward(req, resp);
     }
 
     // ========== FIND ALL ==========
