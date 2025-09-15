@@ -116,7 +116,7 @@ public class UserRoleController extends HttpServlet {
             int userId = Integer.parseInt(req.getParameter("userId"));
             int roleId = Integer.parseInt(req.getParameter("roleId"));
 
-            userService.assignRole(userId, roleId); // dùng lại assignRole để update
+            userService.assignRole(userId, roleId);
             req.setAttribute("message", "Cập nhật quyền thành công");
         } catch (Exception e) {
             e.printStackTrace();
@@ -128,7 +128,7 @@ public class UserRoleController extends HttpServlet {
     private void delete(HttpServletRequest req, HttpServletResponse resp) {
         try {
             int userId = Integer.parseInt(req.getParameter("userId"));
-            userService.removeRole(userId); // ⚠ cần có removeRole trong UserService
+            userService.removeRole(userId);
             req.setAttribute("message", "Xóa quyền thành công");
         } catch (Exception e) {
             e.printStackTrace();

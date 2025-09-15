@@ -65,15 +65,17 @@ public class UserController extends HttpServlet {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		String email = req.getParameter("email");
+		String fullname = req.getParameter("fullname"); 
+		String phone = req.getParameter("phone"); 
 
-		User user = new User();
-		user.setUserName(username);
-		user.setPassword(password);
-		user.setEmail(email);
-		// mặc định role = USER (1)
-		userService.register(user);
+		boolean success = userService.register(username, password, email, fullname, phone);
 
-		req.setAttribute("message", "Đăng ký thành công! Vui lòng đăng nhập.");
+		if (success) {
+			req.setAttribute("message", "Đăng ký thành công! Vui lòng đăng nhập.");
+		} else {
+			req.setAttribute("error", "Tên đăng nhập đã tồn tại!");
+		}
 		req.getRequestDispatcher("/views/user/login.jsp").forward(req, resp);
 	}
+
 }

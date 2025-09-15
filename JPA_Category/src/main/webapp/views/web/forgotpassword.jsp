@@ -1,12 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Forgot Password</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<style>
+body {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #f8f9fa;
+}
+
+.form-box {
+	width: 100%;
+	max-width: 400px;
+	padding: 20px;
+	background: white;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.button-group {
+	display: flex;
+	justify-content: center;
+}
+</style>
 </head>
 <body>
+	<div class="form-box">
+		<form action="${pageContext.request.contextPath}/forgotpassword"
+			method="post">
+			<h2 class="text-center mb-4">Forgot Password</h2>
 
+			<c:if test="${error != null}">
+				<div class="alert alert-danger text-center">${error}</div>
+			</c:if>
+			<c:if test="${message != null}">
+				<div class="alert alert-success text-center">${message}</div>
+			</c:if>
+
+			<div class="mb-3">
+				<label class="form-label">Email</label>
+				<div class="input-group">
+					<span class="input-group-text"><i class="fa fa-envelope"></i></span>
+					<input type="email" placeholder="Enter your email" name="email"
+						class="form-control" required>
+				</div>
+				<small class="text-muted">We will send you a reset link</small>
+			</div>
+
+			<div class="button-group">
+				<button type="submit" class="btn btn-primary w-100">Send
+					Reset Link</button>
+			</div>
+
+			<div class="text-center mt-3">
+				<a href="${pageContext.request.contextPath}/login">Back to Login</a>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

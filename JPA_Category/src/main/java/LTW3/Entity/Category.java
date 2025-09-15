@@ -1,48 +1,52 @@
 package LTW3.Entity;
 
 import java.io.Serializable;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "category")
-@NamedQueries({
-    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
-   
-})
+@NamedQueries({ @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"), })
 public class Category implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id	
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="categoryId")
-    private int categoryId;
-    
-    @Column(name="categoryCode",columnDefinition = "NVARCHAR(255)")
-    private String categoryCode;
-    
-    @Column(name = "categoryName", columnDefinition = "NVARCHAR(255)")
-    private String categoryName;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "categoryId")
+	private int categoryId;
 
-    @Column(columnDefinition = "NVARCHAR(MAX)")
-    private String images;
-    
-    @Column (name = "status",columnDefinition = "bit")
-    private boolean status;
-    
-    
+	@Column(name = "categoryCode", columnDefinition = "NVARCHAR(255)")
+	private String categoryCode;
+
+	@Column(name = "categoryName", columnDefinition = "NVARCHAR(255)")
+	private String categoryName;
+
+	@Column(columnDefinition = "NVARCHAR(MAX)")
+	private String images;
+
+	@Column(name = "status", columnDefinition = "bit")
+	private boolean status;
+
+	// Quan hệ với User
+	@ManyToOne
+	@JoinColumn(name = "userID", nullable = false)
+	private User user;
+
+	// Cột userID để hỗ trợ đọc nhanh (không insert/update trực tiếp)
+	@Column(name = "userID", insertable = false, updatable = false)
+	private int userID;
 
 	public Category() {
 		super();
 	}
-	
 
 	public Category(int categoryId, String categoryCode, String categoryName, String images, boolean status) {
 		super();
@@ -52,7 +56,6 @@ public class Category implements Serializable {
 		this.images = images;
 		this.status = status;
 	}
-
 
 	// ===== GETTER & SETTER =====
 	public int getCategoryId() {
@@ -94,8 +97,19 @@ public class Category implements Serializable {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-    
 
-   
-   
+	// === Thêm Getter & Setter cho user ===
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	// Không tạo setter cho userID vì JPA sẽ tự set từ quan hệ @ManyToOne
 }

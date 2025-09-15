@@ -6,15 +6,53 @@ import java.util.List;
 @Entity
 @Table(name = "roles")
 public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable=false, unique=true)
-    private String name; // ADMIN, USER
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "role_id")
+	private Integer id;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private List<User> users;
+	@Column(nullable = false, unique = true, length = 50)
+	private String name; // ADMIN, USER, SELLER ...
 
-    // getter setter
+	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<User> users;
+
+	// ===== Constructors =====
+	public Role() {
+	}
+
+	public Role(String name) {
+		this.name = name;
+	}
+
+	// ===== Getter & Setter =====
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	// ===== Thêm alias để controller dễ gọi =====
+	public int getRoleId() {
+		return (id != null) ? id : 0;
+	}
 }

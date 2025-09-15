@@ -25,10 +25,7 @@ public interface CategoryService {
 
 	List<Category> findByUserId(int userId);
 
-	void assignRole(int userId, int roleId);
-
-	void removeRole(int userId);
-
+	
 	
 	
 }

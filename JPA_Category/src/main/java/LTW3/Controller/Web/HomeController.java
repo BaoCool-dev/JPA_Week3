@@ -218,12 +218,12 @@ public class HomeController extends HttpServlet {
 			return;
 		}
 
-		if (u.getRoleID() == 1) {
-			resp.sendRedirect(req.getContextPath() + "/admin/home");
-		} else if (u.getRoleID() == 2) {
+		if (u.getRoleID() == 1) { // User
+			resp.sendRedirect(req.getContextPath() + "/user/home");
+		} else if (u.getRoleID() == 2) { // Manager
 			resp.sendRedirect(req.getContextPath() + "/manager/home");
-		} else if (u.getRoleID() == 3) {
-			resp.sendRedirect(req.getContextPath() + "/seller/home");
+		} else if (u.getRoleID() == 3) { // Admin
+			resp.sendRedirect(req.getContextPath() + "/admin/home");
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/home");
 		}

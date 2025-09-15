@@ -1,5 +1,7 @@
 package LTW3.Dao;
 
+import java.util.List;
+
 import LTW3.Entity.User;
 
 public interface UserDao {
@@ -13,10 +15,14 @@ public interface UserDao {
 
 	boolean checkExistPhone(String phone);
 
-	boolean sendEmail(User user);
-
 	void updateStatus(User user);
 
 	void insertRegister(User user);
+
+	User findById(int userId);
+
+	void update(User user);
+
+	List<User> findAll();
 
 }

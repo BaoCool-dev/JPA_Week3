@@ -5,16 +5,13 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "Users") // Tên bảng trong database
+@Table(name = "Users")
 public class User implements Serializable {
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // Tự tăng nếu DB hỗ trợ (SQL Server AUTO_INCREMENT)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userID")
-	private int userID;
+	private int userId; // Đổi tên để đúng chuẩn camelCase
 
 	@Column(name = "userName", nullable = false, unique = true, length = 50)
 	private String userName;
@@ -46,12 +43,16 @@ public class User implements Serializable {
 	@Column(name = "sellerID")
 	private int sellerID;
 
+	@ManyToOne
+	@JoinColumn(name = "roleID", insertable = false, updatable = false)
+	private Role role;
+
 	public User() {
 	}
 
-	public User(int userID, String userName, String email, String fullName, String password, String images,
+	public User(int userId, String userName, String email, String fullName, String password, String images,
 			String phone, int status, String code, int roleID, int sellerID) {
-		this.userID = userID;
+		this.userId = userId;
 		this.userName = userName;
 		this.email = email;
 		this.fullName = fullName;
@@ -65,7 +66,6 @@ public class User implements Serializable {
 	}
 
 	public User(String userName, String email, String fullName, String password, int status, String code, int roleID) {
-		super();
 		this.userName = userName;
 		this.email = email;
 		this.fullName = fullName;
@@ -76,19 +76,19 @@ public class User implements Serializable {
 	}
 
 	public User(String userName, String email, String fullName, String code) {
-		super();
 		this.userName = userName;
 		this.email = email;
 		this.fullName = fullName;
 		this.code = code;
 	}
 
-	public int getUserID() {
-		return userID;
+	// ===== Getter & Setter =====
+	public int getUserId() { // ✅ chuẩn camelCase
+		return userId;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUserId(int userId) { // ✅ chuẩn camelCase
+		this.userId = userId;
 	}
 
 	public String getUserName() {
@@ -115,11 +115,11 @@ public class User implements Serializable {
 		this.fullName = fullName;
 	}
 
-	public String getPassword() { // sửa lại tên method chuẩn JavaBean
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) { // sửa lại tên method chuẩn JavaBean
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -169,5 +169,13 @@ public class User implements Serializable {
 
 	public void setSellerID(int sellerID) {
 		this.sellerID = sellerID;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }

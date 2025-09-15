@@ -24,5 +24,6 @@ public interface CategoryDao {
 	void insert(Category category);
 
 	List<Category> findByUserId(int userId);
+	
 
 }

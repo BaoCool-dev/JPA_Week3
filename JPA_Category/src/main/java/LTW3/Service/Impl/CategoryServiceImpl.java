@@ -1,13 +1,9 @@
 package LTW3.Service.Impl;
 
 import java.util.List;
-
 import LTW3.Dao.CategoryDao;
-import LTW3.Dao.UserDao;
 import LTW3.Dao.Impl.CategoryDaoImpl;
 import LTW3.Entity.Category;
-import LTW3.Entity.Role;
-import LTW3.Entity.User;
 import LTW3.Service.CategoryService;
 
 public class CategoryServiceImpl implements CategoryService {
@@ -58,21 +54,4 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findByUserId(int userId) {
         return categoryDao.findByUserId(userId);
     }
-    @Override
-    public void assignRole(int userId, int roleId) {
-        User user = UserDao.findById(userId);
-        Role role = roleDao.findById(roleId);
-        if (user != null && role != null) {
-            user.setRole(role);
-            UserDao.update(user); // merge lại với role mới
-        }
-    }
-
-    @Override
-    public void removeRole(int userId) {
-        User user = UserDao.findById(userId);
-        if (user != null) {
-            user.setRole(null); // gỡ quyền
-            UserDao.update(user);
-        }
 }

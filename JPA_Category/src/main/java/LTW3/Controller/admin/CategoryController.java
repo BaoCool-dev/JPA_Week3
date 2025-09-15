@@ -45,7 +45,6 @@ public class CategoryController extends HttpServlet {
 		int roleId = currentUser.getRole().getRoleId();
 
 		if (url.contains("create")) {
-			// Chỉ Manager hoặc Admin được tạo
 			if (roleId == 2 || roleId == 3) {
 				req.getRequestDispatcher("/views/category/add.jsp").forward(req, resp);
 				return;
@@ -91,20 +90,20 @@ public class CategoryController extends HttpServlet {
 		loadCategoryByRole(request, response, currentUser);
 	}
 
-	// ========== Load category theo role ==========
+	// ========== Load category role ==========
 	private void loadCategoryByRole(HttpServletRequest request, HttpServletResponse response, User currentUser)
 			throws ServletException, IOException {
 		try {
 			List<Category> list;
 			int roleId = currentUser.getRole().getRoleId();
 
-			if (roleId == 1) { // User xem toàn bộ
+			if (roleId == 1) {
 				list = categoryService.findAll();
 				request.setAttribute("contentPage", "/views/user/home_user.jsp");
-			} else if (roleId == 2) { // Manager xem của chính mình
+			} else if (roleId == 2) {
 				list = categoryService.findByUserId(currentUser.getUserId());
 				request.setAttribute("contentPage", "/views/manager/home_manager.jsp");
-			} else { // Admin
+			} else {
 				list = categoryService.findAll();
 				request.setAttribute("contentPage", "/views/admin/home_admin.jsp");
 			}
@@ -130,7 +129,7 @@ public class CategoryController extends HttpServlet {
 			BeanUtils.populate(category, request.getParameterMap());
 
 			category.setCategoryId(0);
-			category.setUser(currentUser); // Gán người tạo
+			category.setUser(currentUser);
 
 			String fileName = UploadUtils.processUpload("images", request, Constant.DIR + "\\category",
 					category.getCategoryCode() + "_" + System.currentTimeMillis());
@@ -168,7 +167,6 @@ public class CategoryController extends HttpServlet {
 			if (category == null)
 				return;
 
-			// Manager chỉ được xóa của mình
 			if (currentUser.getRole().getRoleId() == 2 && category.getUser().getUserId() != currentUser.getUserId()) {
 				request.setAttribute("error", "Bạn không có quyền xóa category này!");
 				return;
@@ -203,7 +201,6 @@ public class CategoryController extends HttpServlet {
 				return;
 			}
 
-			// Manager chỉ được sửa category của mình
 			if (currentUser.getRole().getRoleId() == 2 && oldcate.getUser().getUserId() != currentUser.getUserId()) {
 				request.setAttribute("error", "Bạn không có quyền sửa category này!");
 				return;

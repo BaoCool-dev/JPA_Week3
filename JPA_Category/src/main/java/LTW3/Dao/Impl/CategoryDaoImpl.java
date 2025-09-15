@@ -134,7 +134,6 @@ public class CategoryDaoImpl implements CategoryDao {
         }
     }
 
-    // ✅ Thêm cho Manager: lấy category theo userId
     @Override
     public List<Category> findByUserId(int userId) {
         EntityManager emna = JPA_Config.getEntityManager();
