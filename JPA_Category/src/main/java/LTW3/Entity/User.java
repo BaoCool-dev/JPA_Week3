@@ -11,7 +11,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userID")
-	private int userId; 
+	private int userId;
 
 	@Column(name = "userName", nullable = false, unique = true, length = 50)
 	private String userName;
@@ -37,33 +37,21 @@ public class User implements Serializable {
 	@Column(name = "code", length = 50)
 	private String code;
 
+	// cột roleID để mapping FK
 	@Column(name = "roleID")
 	private int roleID;
 
-	
-
+	// mapping ManyToOne
 	@ManyToOne
-	@JoinColumn(name = "roleID", insertable = false, updatable = false)
+	@JoinColumn(name = "roleID", referencedColumnName = "roleID", insertable = false, updatable = false)
 	private Role role;
 
+	// ===== Constructors =====
 	public User() {
 	}
 
-	public User(int userId, String userName, String email, String fullName, String password, String images,
-			String phone, boolean status, String code, int roleID) {
-		this.userId = userId;
-		this.userName = userName;
-		this.email = email;
-		this.fullName = fullName;
-		this.password = password;
-		this.images = images;
-		this.phone = phone;
-		this.status = status;
-		this.code = code;
-		this.roleID = roleID;
-	}
-
-	public User(String userName, String email, String fullName, String password, boolean status, String code, int roleID) {
+	public User(String userName, String email, String fullName, String password, boolean status, String code,
+			int roleID) {
 		this.userName = userName;
 		this.email = email;
 		this.fullName = fullName;
@@ -72,8 +60,10 @@ public class User implements Serializable {
 		this.code = code;
 		this.roleID = roleID;
 	}
+	
 
 	public User(String userName, String email, String fullName, String code) {
+		super();
 		this.userName = userName;
 		this.email = email;
 		this.fullName = fullName;
@@ -81,11 +71,11 @@ public class User implements Serializable {
 	}
 
 	// ===== Getter & Setter =====
-	public int getUserId() { // ✅ chuẩn camelCase
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) { // ✅ chuẩn camelCase
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -141,8 +131,8 @@ public class User implements Serializable {
 		return status;
 	}
 
-	public void setStatus(boolean i) {
-		this.status = i;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	public String getCode() {
@@ -160,7 +150,6 @@ public class User implements Serializable {
 	public void setRoleID(int roleID) {
 		this.roleID = roleID;
 	}
-
 
 	public Role getRole() {
 		return role;

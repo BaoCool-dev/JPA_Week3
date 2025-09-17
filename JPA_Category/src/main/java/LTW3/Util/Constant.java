@@ -22,9 +22,9 @@ public class Constant {
 		public static final String ADMIN_HOME = "/views/admin/home_admin.jsp";
 
 		// ==== CATEGORY CRUD ====
-		public static final String CATEGORY_LIST = "/views/admin/category/list.jsp";
-		public static final String CATEGORY_ADD = "/views/admin/category/add.jsp";
-		public static final String CATEGORY_EDIT = "/views/admin/category/edit.jsp";
+		public static final String CATEGORY_LIST = "/views/category/list.jsp";
+		public static final String CATEGORY_ADD = "/views/category/add.jsp";
+		public static final String CATEGORY_EDIT = "/views/category/edit.jsp";
 
 		// ==== USER ROLE CRUD ====
 		public static final String USERROLE_LIST = "/views/admin/userrole/list.jsp";
@@ -32,10 +32,10 @@ public class Constant {
 		public static final String USERROLE_EDIT = "/views/admin/userrole/edit.jsp";
 
 		// ==== MANAGER ====
-		public static final String MANAGER_HOME = "/views/admin/manager/home_manager.jsp";
+		public static final String MANAGER_HOME = "/views/manager/home_manager.jsp";
 
 		// ==== USER ====
-		public static final String USER_HOME = "/views/admin/user/home_user.jsp";
-		public static final String USER_PROFILE = "/views/admin/user/profile.jsp";
+		public static final String USER_HOME = "/views/user/home_user.jsp";
+		public static final String USER_PROFILE = "/views/user/profile.jsp";
 	}
 }

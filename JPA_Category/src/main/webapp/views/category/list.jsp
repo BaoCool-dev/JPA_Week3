@@ -55,7 +55,7 @@ body {
 			<div>
 				<c:if
 					test="${sessionScope.userLogin.roleID == 2 || sessionScope.userLogin.roleID == 3}">
-					<a href="${pageContext.request.contextPath}/category/add"
+					<a href="${pageContext.request.contextPath}/category/create"
 						class="btn btn-success"> <i class="fas fa-plus"></i> Add New
 					</a>
 				</c:if>
