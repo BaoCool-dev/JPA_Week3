@@ -66,10 +66,13 @@ public class CategoryController extends HttpServlet {
 
 		if (url.contains("create")) {
 			insert(request, currentUser);
+
 		} else if (url.contains("update")) {
 			update(request, currentUser);
+		
 		} else if (url.contains("delete")) {
 			delete(request, currentUser);
+	
 		}
 
 		loadCategoryByRole(request, response, currentUser);

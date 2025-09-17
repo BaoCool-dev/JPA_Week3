@@ -35,14 +35,15 @@ public class Category implements Serializable {
 	@Column(name = "status", columnDefinition = "bit")
 	private boolean status;
 
-	// Quan hệ với User
 	@ManyToOne
-	@JoinColumn(name = "userID", nullable = false)
+	@JoinColumn(name = "userID", nullable = true) // hoặc false nếu bắt buộc phải có User
 	private User user;
 
-	// Cột userID để hỗ trợ đọc nhanh (không insert/update trực tiếp)
 	@Column(name = "userID", insertable = false, updatable = false)
-	private int userID;
+	private Integer userID; // Đổi int -> Integer
+
+
+
 
 	public Category() {
 		super();

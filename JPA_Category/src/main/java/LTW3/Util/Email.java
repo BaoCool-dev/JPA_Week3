@@ -21,34 +21,40 @@ public class Email {
 	}
 
 	public boolean sendEmail(User users) {
-		boolean test = false;
-		String toEmail = users.getEmail();
-		String fromEmail = "baoproa6@gmail.com";
-		String password = "0375478571b-n";
-		try {
-			Properties pr = configEmail(new Properties());
+	    boolean test = false;
+	    String toEmail = users.getEmail();
+	    String fromEmail = "baoproa6@gmail.com";
+	    String password = "rhkn fnwe pwfd wdoh"; // app password
 
-			Session session = Session.getInstance(pr, new Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(fromEmail, password);
-				}
-			});
+	    try {
+	        System.out.println("📧 [DEBUG] Bắt đầu gửi email tới: " + toEmail);
 
-			Message mess = new MimeMessage(session);
-			mess.setFrom(new InternetAddress(fromEmail, "LTW3 App"));
-			mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-			mess.setSubject("Confirm Code");
-			mess.setText("Your code is: " + users.getCode());
+	        Properties pr = configEmail(new Properties());
 
-			Transport.send(mess);
-			test = true;
+	        Session session = Session.getInstance(pr, new Authenticator() {
+	            protected PasswordAuthentication getPasswordAuthentication() {
+	                return new PasswordAuthentication(fromEmail, password);
+	            }
+	        });
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	        Message mess = new MimeMessage(session);
+	        mess.setFrom(new InternetAddress(fromEmail, "LTW3 App"));
+	        mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+	        mess.setSubject("Confirm Code");
+	        mess.setText("Your code is: " + users.getCode());
 
-		return test;
+	        Transport.send(mess);
+	        System.out.println("✅ [DEBUG] Gửi email thành công tới " + toEmail);
+	        test = true;
+
+	    } catch (Exception e) {
+	        System.out.println("❌ [ERROR] Gửi email thất bại: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    return test;
 	}
+
 
 	public Properties configEmail(Properties pr) {
 		pr.setProperty("mail.smtp.host", "smtp.gmail.com");
