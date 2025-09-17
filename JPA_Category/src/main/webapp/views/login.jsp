@@ -63,10 +63,15 @@ body {
 			<button type="submit" class="btn btn-primary w-100">
 				<i class="fa fa-sign-in-alt"></i> Login
 			</button>
+			
 			<div class="text-center mt-3">
 				<a href="${pageContext.request.contextPath}/register"
-					class="text-decoration-none">Create an account</a>
+					class="text-decoration-none"> Create an account </a> <br> <a
+					href="${pageContext.request.contextPath}/forgotpass"
+					class="text-decoration-none text-muted" style="font-size: 0.9rem;">
+					Forgot password? </a>
 			</div>
+
 		</form>
 	</div>
 </body>
