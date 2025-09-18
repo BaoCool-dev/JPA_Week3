@@ -1,44 +1,41 @@
 package ltw.vn.Entity;
 
 import java.io.Serializable;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
-@Table(name = "video")
-public class Video implements Serializable{
+@Table(name = "videos")
+public class Video implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@Column (name = "VideoId")
-	private String videoId;
-	
-	@Column (name = "Active")
-	private boolean active;
-	
-	@Column (name = "Description", columnDefinition = "nvarchar(MAX) not null")
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@Column(name = "video_id")
+	private Integer videoId;
+
+	@Column(name = "active")
+	private Boolean active;
+
+	@Column(name = "description", columnDefinition = "nvarchar(MAX)")
 	private String description;
-	
-	@Column (name = "Poster")
+
+	@Column(name = "poster", columnDefinition = "nvarchar(255)")
 	private String poster;
-	
-	@Column (name = "Title", columnDefinition = "nvarchar(255) not null")
+
+	@Column(name = "title", nullable = false, columnDefinition = "nvarchar(255)")
 	private String title;
-	
-	@Column (name = "Views")
-	private int views;
+
+	@Column(name = "views")
+	private Integer views;
 
 	@ManyToOne
-	@JoinColumn(name = "CategoryId")
-	private Category  category;
-	
+	@JoinColumn(name = "category_id", nullable = false)
+	private Category category;
 }

@@ -2,61 +2,38 @@ package ltw.vn.Entity;
 
 import java.io.Serializable;
 import java.util.Set;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-
-import jakarta.persistence.Entity;
-
-import jakarta.persistence.GeneratedValue;
-
-import jakarta.persistence.GenerationType;
-
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
-
 import lombok.Data;
-
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-
 @NoArgsConstructor
-
 @Data
-
 @Entity
-
-@Table(name = "Category")
-
+@Table(name = "categories") 
 public class Category implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CategoryId")
-	private Long catergoryId;
+	@Column(name = "category_id")
+	private Integer categoryId;
 
-	@Column(name = "CategoryCode", columnDefinition = "nvarchar(255)")
-	private String categorycode;
+	@Column(name = "categorycode", columnDefinition = "nvarchar(255)")
+	private String categoryCode;
 
-	@Column(name = "CategoryName", columnDefinition = "nvarchar(255)")
-	private String categoryname;
+	@Column(name = "categoryname", columnDefinition = "nvarchar(255)")
+	private String categoryName;
 
-	@Column(name = "Images")
+	@Column(name = "images")
 	private String images;
 
-	@Column(name = "Status")
-	private boolean status;
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	@Column(name = "status")
+	private Boolean status;
+
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Video> videos;
-
-	public Long getCatergoryId() {
-		return catergoryId;
-	}
-
 }
